@@ -2,10 +2,10 @@ import numpy as np
 from math import exp
 
 
-def algorithm_6(D, epsilon, queries):
+def Prot_AdSamp(D, epsilon, queries):
     partition = np.random.randint(queries.shape[0], size=D.shape[0])
     c_epsilon = (exp(epsilon)+1) / (exp(epsilon)-1)
-    r = max(abs(row.sum()) for row in D)
+    r = max(abs(row) for row in queries)
     response_vector = np.zeros(queries.shape[0])
     for k in range(queries.shape[0]):
         users_in_k = np.where(partition == k)[0]
