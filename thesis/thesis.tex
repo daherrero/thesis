@@ -180,10 +180,25 @@ where x and y are databases that differ by one datapoint. \\\\
 Calculating the sensitivity is straightforward when the database only has one category, but when there is more than one category, and the response from the algorithm is a vector, calculating the sensitivity, as it depends on a distance calculation, can be done in different ways. In the case of the Laplace Mechanism, the $\ell_1$-norm (Mannhattan distance) is used, but in the case of the Gaussian Mechanism, the $\ell_2$-norm (Euclidean distance) is used.
 
 \subsubsection{Laplace Mechanism}
+$$\mathcal{M}_{\mbox{Lap}}(x,f,\epsilon)=f(x)+\mbox{Lap}\left(\mu=0,b=\frac{\Delta f}{\epsilon}\right)$$
 
+The Laplace Mechanism preserves ($\epsilon$, 0)-differential privacy.\\\\
+Proof. Let $x \in \mathbb{N}^{|\chi|}$ and $y \in \mathbb{N}^{|\chi|}$ be such that $||x-y||_1 \leq 1$, and let $f(\cdot)$ be some function $f:\mathbb{N}^{|\chi|} \rightarrow\mathbb{R}^k$. Let $p_x$ denote the probability density function of $\mathcal{M}_L(x,f,\epsilon)$, and let $p_y$ denote the probability density function $\mathcal{M}_L(x,f,\epsilon)$. We compare the two at some arbitrary point $z\in\mathbb{R}^k$ \\
+\begin{align*}
+\frac{p_x(z)}{p_y(z)} &= \prod_{i=1}^k\left(\frac{\exp(-\frac{\varepsilon|f(x)_i-z_i|}{\Delta f})}{\exp(-\frac{\varepsilon|f(y)_i-z_i|}{\Delta f})}\right) \\
+&= \prod_{i=1}^k\exp\left(\frac{\varepsilon(|f(y)_i-z_i|-f(x)_i-z_i|)}{\Delta f}\right) \\
+&\leq \prod_{i=1}^k\exp\left(\frac{\varepsilon|f(x)_i-f(y)_i|}{\Delta f}\right)\\
+&= \exp\left(\frac{\varepsilon \cdot ||f(x)-f(y)||_1}{\Delta f}\right)\\
+&\leq\exp(\varepsilon),
+\end{align*}
+where the first inequality follows from the triangle inequality, and the last follows from the definition of sensitivity and the fact that $||x-y||_1\leq1$. That $\frac{p_x(x)}{p_y(z)}\geq\exp(-\varepsilon)$ follows by symmetry. \\\\
+Example. Consider a counting query that asks for the amount of datapoints in a database that satisfy a condition C. The sensitivity of this function will be 1, as it is how much the output will change with the adddition of a new datapoint. It follows that $\varepsilon$-differential privacy if noise is drawn from Laplace(1/$\varepsilon$).
 \subsubsection{Guassian Mechanism}
+$$\mathcal{M}_{\mbox{Gauss}}(x,y,\epsilon,\delta)=f(x)+\mathcal{N}^d\left(\mu=0,\sigma^2=\frac{2ln(1.25/\epsilon)\dot(\Delta f)^2}{\epsilon^2}\right)$$ \\\\
+Using the Gaussian Mechanism is useful when a single datapoint can affect more than one statistic and the differentially private algorithm returns more than one of those statistics, and we don't need $\delta=0$. \\\\
+This is due to the way sensitivity is calculated in the Laplace and Gaussian cases. As mentioned in the sensitivity subsection, the Laplace Mechanism uses $\ell_1$-norm, and the Gaussian Mechanism uses the $\ell_2$-norm, meaning that when a single datapoint affects k different statistics, the Laplace Mechanism scales the noise by $k$, while the Gaussian Mechanism scales the noise by $\sqrt{k}$.
 
-\subsection{Online vs. Offline Queries}
+\section{Linear Queries}
 
     \chapter{The First}
     	This is the first page of the first chapter. You may delete the contents of this chapter so you can add your own text; it's just here to show you some examples. 
