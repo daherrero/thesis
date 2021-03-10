@@ -10,11 +10,36 @@ def J(users_inputs):
     return np.amax(users_inputs) - np.amin(users_inputs)
 
 
-""" 
+def ProjWSort(y, w, a):
+    w = w.sum(axis=1)
+    z = np.zeros(w.shape[0])
+    for i in range(w.shape[0]):
+        z[i, ] = y[i, ]/w[i, ]
+    z_perm = np.argsort(z)
+    z = z[z_perm]
+    sumWY = w[z_perm[0]] * y[z_perm[0]]
+    Ws = w[z_perm[0]] * w[z_perm[0]]
+    tau = (sumWY - a) / Ws
+    i = 1
+    while (i < w.shape[0]) and (z[i, ] > tau):
+        sumWY += w[z_perm[i]] * y[z_perm[i]]
+        Ws += w[z_perm[i]] * w[z_perm[i]]
+        tau = (sumWY - a) / Ws
+        i += 1
+    x = np.zeros(w.shape[0])
+    for i in range(w.shape[0]):
+        if y[i] > w[i] * tau:
+            x[i, ] = y[i] - w[i] * tau
+        else:
+            x[i, ] = 0
+    return x
+
+
+"""
 from https://gist.github.com/daien/1272551/edd95a6154106f8e28209a1c7964623ef8397246
 Module to compute projections on the positive simplex or the L1-ball
 
-A positive simplex is a set X = { \mathbf{x} | \sum_i x_i = s, x_i \geq 0 }
+A positive simplex is a set X = {\mathbf{x} | \sum_i x_i = s, x_i \geq 0 }
 
 The (unit) L1-ball is the set X = { \mathbf{x} | || x ||_1 \leq 1 }
 

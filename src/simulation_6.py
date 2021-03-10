@@ -18,16 +18,12 @@ def worstCaseError(epsilon, r, d, n):
 
 
 def trueResponse(D, A):
-    response_vector = np.zeros(A.shape[0])
-    for k in range(A.shape[0]):
-        y_sum = 0
-        for user in D:
-            y_sum += np.matmul(D[k, ], user)
-        print("vector: ")
-        print(y_sum)
-        print(y_sum / D.shape[0])
-        response_vector[k, ] = y_sum / D.shape[0]
-    return response_vector
+    y_tilda = np.zeros(shape=(D.shape[0], A.shape[0]))
+    for user in range(D.shape[0]):
+        y_tilda[user, ] = np.matmul(A, D[user])
+    y_sum = y_tilda.sum(axis=0)
+    y = np.divide(y_sum, D.shape[0])
+    return y
 
 
 def simulation():
