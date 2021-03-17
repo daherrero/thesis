@@ -1,21 +1,23 @@
 import numpy as np
-from scipy.stats import norm
+from scipy.stats import multivariate_normal
 import helpers
 
 
-def R_RejSamp(A, v_i, epsilon, n):
+def R_RejSamp(A, v_i, epsilon, n, r):
     a_v_i = np.matmul(A, v_i)
+    d = A.shape[0]
+    r_sq = np.power(r, 2)
+    
+    sigma_sq = 4 * np.power(r_sq, 2) * np.divide(np.log(n), np.power(epsilon, 2))
+    y_tilda_i = np.random.default_rng().multivariate_normal(np.zeros(d), np.multiply(sigma_sq, np.identity(d)))
 
-    r = np.power(helpers.r(A), 2)
-    sigma_sq = 4 * np.power(r, 2) * np.log(n) / np.power(epsilon, 2)
-    y_tilda_i = np.random.normal(0, np.multiply(sigma_sq, np.identity(A.shape[0]))).sum(axis=1)
+    f_a_v_i = multivariate_normal.pdf(y_tilda_i, mean=a_v_i, cov=np.multiply(sigma_sq, np.identity(d)))
+    f_0 = multivariate_normal.pdf(y_tilda_i, mean=np.zeros(d), cov=np.multiply(sigma_sq, np.identity(d)))
 
-    f_a_v_i = norm.pdf(y_tilda_i, np.mean(a_v_i), np.sqrt(sigma_sq))
-    f_0 = norm.pdf(y_tilda_i, 0, np.sqrt(sigma_sq))
-    n_i = np.multiply(np.divide(np.divide(f_a_v_i, f_0)), 2)
-
+    n_i = np.divide(np.divide(f_a_v_i, f_0), 2)
     a = np.exp(np.divide(np.divide(-epsilon, 4), 2))
     b = np.exp(np.divide(np.divide(epsilon, 4), 2))
+
     if n_i >= a and n_i <= b:
         if np.binomial(1, n_i):
             return y_tilda_i
