@@ -1,6 +1,11 @@
 import numpy as np
 import math
 
+def data_generator_normal(n, J, loc=0, scale=1):
+    return np.random.normal(loc, scale, size=(n, J))
+
+def linear_queries_generator(d, J):
+    return np.random.rand(d, J)
 
 def r(query_matrix):
     return max(abs(row) for row in query_matrix)

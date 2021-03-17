@@ -22,17 +22,18 @@ def trueResponse(D, A):
 
 
 def simulation():
-    if len(sys.argv) != 4:
-        print("Usage: python3 simulation.py <variables> <queries> <users>")
+    if len(sys.argv) != 5:
+        print("Usage: python3 simulation.py <variables> <queries> <users> <epsilon>")
         return
     else:
         J = int(sys.argv[1])
         d = int(sys.argv[2])
         n = int(sys.argv[3])
+        epsilon = float(sys.argv[4])
 
     D = data_generator_normal(n, J)
     A = linear_queries_generator(d, J)
-    print(Prot_RejSamp(A, D, 1))
+    print(Prot_RejSamp(A, D, epsilon))
     print(trueResponse(D, A))
 
 

@@ -4,8 +4,8 @@ import numpy as np
 import sys
 
 
-def data_generator_normal(n, J, mean=50, sigma=100):
-    return np.random.normal(mean, sigma, size=(n, J))
+def data_generator_normal(n, J, loc=0, scale=1):
+    return np.random.normal(loc, scale, size=(n, J))
 
 
 def linear_queries_generator(d, J):
@@ -22,17 +22,19 @@ def trueResponse(D, A):
 
 
 def simulation():
-    if len(sys.argv) != 4:
-        print("Usage: python3 simulation.py <variables> <queries> <users>")
+    if len(sys.argv) != 6:
+        print("Usage: python3 simulation.py <variables> <queries> <users> <epsilon> <delta>")
         return
     else:
         J = int(sys.argv[1])
         d = int(sys.argv[2])
         n = int(sys.argv[3])
+        epsilon = float(sys.argv[4])
+        delta = float(sys.argv[5])
 
     D = data_generator_normal(n, J)
     A = linear_queries_generator(d, J)
-    print(Prot_Gauss(A, D, 1, 0.0001))
+    print(Prot_Gauss(A, D, epsilon, delta))
     print(trueResponse(D, A))
 
 
