@@ -4,7 +4,7 @@ import numpy as np
 import sys
 
 
-def data_generator_normal(n, J, mean=50, sigma=100):
+def data_generator_normal(n, J, mean=0, sigma=1):
     return np.random.normal(mean, sigma, size=(n, J))
 
 

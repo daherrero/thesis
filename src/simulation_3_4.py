@@ -4,8 +4,8 @@ import numpy as np
 import sys
 
 
-def data_generator_normal(n, J, mean=50, sigma=100):
-    return np.random.normal(mean, sigma, size=(n, J))
+def data_generator_normal(n, J, loc=0, scale=1):
+    return np.random.normal(loc, scale, size=(n, J))
 
 
 def linear_queries_generator(d, J):
@@ -32,7 +32,7 @@ def simulation():
 
     D = data_generator_normal(n, J)
     A = linear_queries_generator(d, J)
-    print(Prot_RejSamp(A, D, 10))
+    print(Prot_RejSamp(A, D, 1))
     print(trueResponse(D, A))
 
 
