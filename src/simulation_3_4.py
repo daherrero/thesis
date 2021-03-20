@@ -6,7 +6,7 @@ import sys, helpers
 
 def simulation():
     if len(sys.argv) != 5:
-        print("Usage: python3 simulation.py <variables> <queries> <users> <epsilon>")
+        print("Usage: python3 simulation.py <categories> <queries> <users>> <epsilon>")
         return
     else:
         J = int(sys.argv[1])

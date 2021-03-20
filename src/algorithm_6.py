@@ -14,11 +14,10 @@ def Prot_AdSamp(D, epsilon, queries):
             continue
         y_tilda_sum = 0
         for user in users_in_k:
-            q_k_v_i = np.matmul(queries[k, ], D[user, ])
+            q_k_v_i = queries[k, D[user]]
             if np.random.rand() < (1/2)*(1+(q_k_v_i/(c_epsilon*r))):
                 y_tilda_sum += c_epsilon_r
             else:
                 y_tilda_sum -= c_epsilon_r
-                
         response_vector[k, ] = y_tilda_sum / len(users_in_k)
     return response_vector
