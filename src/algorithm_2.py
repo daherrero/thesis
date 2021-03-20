@@ -3,8 +3,7 @@ import helpers
 from algorithm_1 import R_i_Gauss
 
 
-def Prot_Gauss(A, users_inputs, epsilon, delta):
-    J = helpers.J(users_inputs)
+def Prot_Gauss(A, users_inputs, epsilon, delta, J):
     n = users_inputs.shape[0]
     d = A.shape[0]
     

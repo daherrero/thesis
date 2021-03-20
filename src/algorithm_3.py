@@ -3,7 +3,7 @@ from scipy.stats import multivariate_normal
 
 
 def R_RejSamp(A, v_i, epsilon, n, sigma_sq, a, b):
-    a_v_i = np.matmul(A, v_i)
+    a_v_i = A[:, v_i]
     d = A.shape[0]
     
     y_tilda_i = np.random.default_rng().multivariate_normal(np.zeros(d), np.multiply(sigma_sq, np.identity(d)))

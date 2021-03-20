@@ -3,8 +3,7 @@ import helpers
 from algorithm_3 import R_RejSamp
 
 
-def Prot_RejSamp(A, users_inputs, epsilon):
-    J = helpers.J(users_inputs)
+def Prot_RejSamp(A, users_inputs, epsilon, J):
     n = users_inputs.shape[0]
     d = A.shape[0]
 

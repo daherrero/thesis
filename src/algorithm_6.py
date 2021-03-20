@@ -3,8 +3,6 @@ from math import exp
 
 
 def Prot_AdSamp(D, epsilon, queries):
-    print(D)
-    print(queries)
     partition = np.random.randint(queries.shape[0], size=D.shape[0])
     c_epsilon = (exp(epsilon)+1) / (exp(epsilon)-1)
     r = np.amax(queries)

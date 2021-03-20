@@ -1,6 +1,25 @@
 import numpy as np
 import math
 
+def realResponse(D, A):
+    y_tilda = np.zeros(shape=(D.shape[0], A.shape[0]))
+    for user in range(D.shape[0]):
+        y_tilda[user, ] = A[:, D[user]]
+    y_sum = y_tilda.sum(axis=0)
+    y = np.divide(y_sum, D.shape[0])
+    return y
+
+def trueResponse(D, A):
+    y_tilda = np.zeros(shape=(D.shape[0], A.shape[0]))
+    for user in range(D.shape[0]):
+        y_tilda[user, ] = np.matmul(A, D[user])
+    y_sum = y_tilda.sum(axis=0)
+    y = np.divide(y_sum, D.shape[0])
+    return y
+
+def user_data_generator(n, J, loc=0, scale=1):
+    return np.random.randint(0, J, size=n)
+
 def data_generator_normal(n, J, loc=0, scale=1):
     return np.random.normal(loc, scale, size=(n, J))
 
@@ -10,10 +29,8 @@ def linear_queries_generator(d, J):
 def r(query_matrix):
     return max(abs(row) for row in query_matrix)
 
-
 def J(users_inputs):
     return np.amax(users_inputs) - np.amin(users_inputs)
-
 
 def ProjWSort(y, w, a):
     w = w.sum(axis=1)
