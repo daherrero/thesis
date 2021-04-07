@@ -17,8 +17,11 @@ def simulation():
 
     D = helpers.user_data_generator(n, J)
     A = helpers.linear_queries_generator(d, J)
-    print(Prot_Gauss(A, D, epsilon, delta, J))
-    print(helpers.realResponse(D, A))
-
+    private_response = Prot_Gauss(A, D, epsilon, delta, J)
+    real_response = helpers.realResponse(D, A)
+    print(private_response)
+    print(real_response)
+    print(helpers.l2_gaussian_error(epsilon, delta, d, helpers.l2_r(A), n, J))
+    print(np.linalg.norm(real_response-private_response))
 
 simulation()

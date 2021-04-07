@@ -1,5 +1,5 @@
 from algorithm_6 import Prot_AdSamp
-from math import exp, sqrt, log
+from math import inf
 import numpy as np
 import sys, helpers
 
@@ -16,8 +16,16 @@ def simulation():
 
     D = helpers.user_data_generator(n, J)
     A = helpers.linear_queries_generator(d, J)
-    print(Prot_AdSamp(D, epsilon, A))
-    print(helpers.realResponse(D, A))
-
+    private_response, query_time, total_time = Prot_AdSamp(D, epsilon, A)
+    linf_r = helpers.linf_r(A)
+    linf_error = helpers.linf_error(epsilon, d, n, linf_r)
+    real_response = helpers.realResponse(D, A)
+    prot_adsamp_error = np.linalg.norm(x=(real_response-private_response), ord=inf)
+    print(linf_error)
+    print(prot_adsamp_error)
+    print(private_response)
+    print(real_response)
+    print(query_time)
+    print(total_time)
 
 simulation()
