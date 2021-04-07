@@ -16,8 +16,11 @@ def simulation():
 
     D = helpers.user_data_generator(n, J)
     A = helpers.linear_queries_generator(d, J)
-    print(Prot_RejSamp(A, D, epsilon, J))
-    print(helpers.realResponse(D, A))
-
+    private_response = Prot_RejSamp(A, D, epsilon, J)
+    real_response = helpers.realResponse(D, A)
+    print(private_response)
+    print(real_response)
+    print(helpers.l2_error(epsilon, d, helpers.l2_r(A), n, J))
+    print(np.linalg.norm(real_response-private_response))
 
 simulation()

@@ -26,8 +26,22 @@ def data_generator_normal(n, J, loc=0, scale=1):
 def linear_queries_generator(d, J):
     return np.random.rand(d, J)
 
-def r(query_matrix):
-    return max(abs(row) for row in query_matrix)
+def c_epsilon(epsilon):
+    return (np.exp(epsilon)+1) / (np.exp(epsilon)-1)
+
+def linf_r(query_matrix):
+    return np.amax(query_matrix)
+
+def linf_error(epsilon, d, n, r):
+    return np.multiply(r, np.sqrt(np.divide(np.multiply(np.power(c_epsilon(epsilon), 2), np.multiply(d, np.log(d))), n)))
+
+def l2_r(query_matrix):
+    return np.amax(np.linalg.norm(query_matrix, axis=1))
+
+def l2_error(epsilon, d, r, n, J):
+    a = np.power(np.divide(np.multiply(np.log(J),np.log(n)), np.multiply(n, np.power(epsilon, 2))), np.divide(1,4))
+    b = np.sqrt(np.divide(d, np.multiply(n, np.power(epsilon, 2))))
+    return np.multiply(r, np.minimum(a, b))
 
 def J(users_inputs):
     return np.amax(users_inputs) - np.amin(users_inputs)
