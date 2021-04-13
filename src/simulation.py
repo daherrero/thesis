@@ -50,7 +50,7 @@ def simulation(categories, queries, users, epsilon, delta):
         results_writer = csv.writer(results, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         results_writer.writerow(['ProtGauss', epsilon, delta, J, d, n, prot_gauss_response, l2_gauss_error, prot_gauss_error, gauss_query_time, gauss_total_time])
         results_writer.writerow(['ProtRejSamp', epsilon, "NA", J, d, n, prot_rejsamp_response, l2_error, prot_rejsamp_error, rejsamp_query_time, rejsamp_total_time])
-        results_writer.writerow(['ProtAdSamp', epsilon, delta, J, d, n, prot_adsamp_reponse, linf_error, prot_adsamp_error, adsamp_query_time, adsamp_total_time])
+        results_writer.writerow(['ProtAdSamp', epsilon, delta, J, d, n, prot_adsamp_reponse, linf_error, prot_adsamp_error_linf, adsamp_query_time, adsamp_total_time])
         results_writer.writerow(['Real', 'NA', 'NA', J, d, n, real_response, "NA", "NA", query_real_time, total_real_time])
 
 categories = [50]
