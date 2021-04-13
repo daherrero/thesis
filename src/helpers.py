@@ -32,7 +32,7 @@ def linf_r(query_matrix):
     return np.amax(query_matrix)
 
 def prot_adsamp_estimated_error(epsilon, d, n, r):
-    return np.multiply(4*r, np.sqrt(np.divide(np.multiply(np.power(c_epsilon(epsilon), 2), np.multiply(d, np.log(d))), n)))
+    return np.multiply(r, np.sqrt(np.divide(np.multiply(np.power(c_epsilon(epsilon), 2), np.multiply(d, np.log(d))), n)))
 
 def l2_r(query_matrix):
     return np.amax(np.linalg.norm(query_matrix, axis=1))
