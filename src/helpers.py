@@ -31,18 +31,18 @@ def c_epsilon(epsilon):
 def linf_r(query_matrix):
     return np.amax(query_matrix)
 
-def linf_error(epsilon, d, n, r):
+def prot_adsamp_estimated_error(epsilon, d, n, r):
     return np.multiply(4*r, np.sqrt(np.divide(np.multiply(np.power(c_epsilon(epsilon), 2), np.multiply(d, np.log(d))), n)))
 
 def l2_r(query_matrix):
     return np.amax(np.linalg.norm(query_matrix, axis=1))
 
-def l2_error(epsilon, d, r, n, J):
+def prot_rejsamp_estimated_error(epsilon, d, r, n, J):
     a = np.power(np.divide(np.multiply(280*np.log(J),np.log(n)), np.multiply(n, np.power(epsilon, 2))), np.divide(1,4))
     b = np.sqrt(np.divide(np.multiply(10*d,np.log(n)), np.multiply(n, np.power(epsilon, 2))))
     return np.multiply(r, np.minimum(a, b))
 
-def l2_gaussian_error(epsilon, delta, d, r, n, J):
+def prot_gauss_estimated_error(epsilon, delta, d, r, n, J):
     a = np.power(np.divide(np.multiply(32*np.log(J),np.log(np.divide(2, delta))), np.multiply(n, np.power(epsilon, 2))), np.divide(1,4))
     b = np.sqrt(np.divide(np.multiply(2*d,np.log(np.divide(2, delta))), np.multiply(n, np.power(epsilon, 2))))
     return np.multiply(r, np.minimum(a, b))

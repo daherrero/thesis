@@ -35,6 +35,4 @@ def Prot_RejSamp(A, users_inputs, epsilon, J):
     end_time_all = time.time_ns()
     query_time_mean = np.divide(np.divide((end_time_queries - start_time_queries), n), (10**6))
     total_time = np.divide((end_time_all - start_time_all), (10 ** 9))
-    print(query_time_mean)
-    print(total_time)
-    return y_hat
+    return (y_hat, query_time_mean, total_time)

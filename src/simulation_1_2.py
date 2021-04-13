@@ -21,7 +21,7 @@ def simulation():
     real_response = helpers.realResponse(D, A)
     print(private_response)
     print(real_response)
-    print(helpers.l2_gaussian_error(epsilon, delta, d, helpers.l2_r(A), n, J))
+    print(helpers.prot_gauss_estimated_error(epsilon, delta, d, helpers.l2_r(A), n, J))
     print(np.linalg.norm(real_response-private_response))
 
 simulation()

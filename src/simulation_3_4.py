@@ -20,7 +20,7 @@ def simulation():
     real_response = helpers.realResponse(D, A)
     print(private_response)
     print(real_response)
-    print(helpers.l2_error(epsilon, d, helpers.l2_r(A), n, J))
+    print(helpers.prot_rejsamp_estimated_error(epsilon, d, helpers.l2_r(A), n, J))
     print(np.linalg.norm(real_response-private_response))
 
 simulation()

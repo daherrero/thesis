@@ -23,6 +23,6 @@ def Prot_AdSamp(D, epsilon, queries):
                 y_tilda_sum -= c_epsilon_r
         response_vector[k, ] = y_tilda_sum / len(users_in_k)
     end_time = time.time_ns()
-    query_time_mean = np.divide((end_time - start_time_queries), D.shape[0])
+    query_time_mean = np.divide(np.divide((end_time - start_time_queries), D.shape[0]), (10**6))
     total_time = np.divide((end_time - start_time_all), (10 ** 9))
     return (response_vector, query_time_mean, total_time)
