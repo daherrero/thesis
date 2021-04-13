@@ -4,18 +4,17 @@ from algorithm_4 import Prot_RejSamp
 from algorithm_6 import Prot_AdSamp
 
 import numpy as np
-import helpers, csv, time
+import helpers, csv, time, uuid
 
 def simulation(categories, queries, users, epsilon, delta):
     J = categories
     d = queries
     n = users
     D = helpers.user_data_generator(n, J)
-    A = 50*helpers.linear_queries_generator(d, J)
-
+    A = helpers.linear_queries_generator(d, J)
     l2_r = helpers.l2_r(A)
     linf_r = helpers.linf_r(A)
-
+    curr_uuid = str(uuid.uuid4())
     l2_gauss_error = helpers.prot_gauss_estimated_error(epsilon, delta, d, l2_r, n, J) 
     l2_error = helpers.prot_rejsamp_estimated_error(epsilon, d, l2_r, n, J)
     linf_error = helpers.prot_adsamp_estimated_error(epsilon, d, n, linf_r)
@@ -46,22 +45,35 @@ def simulation(categories, queries, users, epsilon, delta):
     print(f"ProtAdSamp error: {prot_adsamp_error_linf}, response = {prot_adsamp_reponse}")
     print(f"ProtAdSamp l2-error: {prot_adsamp_error_l2}\n")
 
-    with open('results_with_time.csv', mode='a') as results:
+    with open('parameters.csv', mode='a') as parameters:
+        parameters_writer = csv.writer(parameters, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        parameters_writer.writerow([curr_uuid, epsilon, delta, J, d, n])
+
+    with open('time_results.csv', mode='a') as time_results:
+        time_results_writer = csv.writer(time_results, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        time_results_writer.writerow([curr_uuid, 'ProtGauss', gauss_query_time, gauss_total_time])
+        time_results_writer.writerow([curr_uuid, 'ProtRejSamp', rejsamp_query_time, rejsamp_total_time])
+        time_results_writer.writerow([curr_uuid, 'ProtAdSamp', adsamp_query_time, adsamp_total_time])
+        time_results_writer.writerow([curr_uuid, 'Real', query_real_time, total_real_time])
+
+    with open('results.csv', mode='a') as results:
         results_writer = csv.writer(results, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        results_writer.writerow(['ProtGauss', epsilon, delta, J, d, n, prot_gauss_response, l2_gauss_error, prot_gauss_error, gauss_query_time, gauss_total_time])
-        results_writer.writerow(['ProtRejSamp', epsilon, "NA", J, d, n, prot_rejsamp_response, l2_error, prot_rejsamp_error, rejsamp_query_time, rejsamp_total_time])
-        results_writer.writerow(['ProtAdSamp', epsilon, delta, J, d, n, prot_adsamp_reponse, linf_error, prot_adsamp_error_linf, adsamp_query_time, adsamp_total_time])
-        results_writer.writerow(['Real', 'NA', 'NA', J, d, n, real_response, "NA", "NA", query_real_time, total_real_time])
+        results_writer.writerow([curr_uuid, 'ProtGauss', prot_gauss_response, l2_gauss_error, prot_gauss_error])
+        results_writer.writerow([curr_uuid, 'ProtRejSamp', prot_rejsamp_response, l2_error, prot_rejsamp_error])
+        results_writer.writerow([curr_uuid, 'ProtAdSamp', prot_adsamp_reponse, linf_error, prot_adsamp_error_linf])
+        results_writer.writerow([curr_uuid, 'Real', real_response, "NA", "NA"])
 
 categories = [50]
 queries = [5]
-users = [100000]
+users = [1000000]
 epsilons = [1]
 deltas = [1]
+times = 10
 
 for n_users in users:
     for epsilon in epsilons:
         for delta in deltas:
             for category in categories:
                 for query in queries:
-                    simulation(category, query, n_users, epsilon, np.multiply(delta, np.divide(1,n_users)))
+                    for t in times:
+                        simulation(category, query, n_users, epsilon, np.multiply(delta, np.divide(1,n_users)))

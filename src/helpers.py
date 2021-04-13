@@ -40,6 +40,15 @@ def l2_r(query_matrix):
 def prot_rejsamp_estimated_error(epsilon, d, r, n, J):
     a = np.power(np.divide(np.multiply(280*np.log(J),np.log(n)), np.multiply(n, np.power(epsilon, 2))), np.divide(1,4))
     b = np.sqrt(np.divide(np.multiply(10*d,np.log(n)), np.multiply(n, np.power(epsilon, 2))))
+    print(a)
+    print(b)
+    return np.multiply(r, np.minimum(a, b))
+
+def prot_rejsamp_estimated_error_b(epsilon, d, r, n, J):
+    a = np.power(np.divide(np.multiply(np.log(J),np.log(n)), np.multiply(n, np.power(epsilon, 2))), np.divide(1,4))
+    b = np.sqrt(np.divide(d, np.multiply(n, np.power(epsilon, 2))))
+    print(a)
+    print(b)
     return np.multiply(r, np.minimum(a, b))
 
 def prot_gauss_estimated_error(epsilon, delta, d, r, n, J):
