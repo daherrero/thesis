@@ -15,9 +15,9 @@ def simulation(categories, queries, users, epsilon, delta):
     l2_r = helpers.l2_r(A)
     linf_r = helpers.linf_r(A)
     curr_uuid = str(uuid.uuid4())
-    l2_gauss_error = helpers.prot_gauss_estimated_error(epsilon, delta, d, l2_r, n, J) 
-    l2_error = helpers.prot_rejsamp_estimated_error(epsilon, d, l2_r, n, J)
-    linf_error = helpers.prot_adsamp_estimated_error(epsilon, d, n, linf_r)
+    prot_gauss_estimated_error = helpers.prot_gauss_estimated_error(epsilon, delta, d, l2_r, n, J) 
+    prot_rejsamp_estimated_error = helpers.prot_rejsamp_estimated_error(epsilon, d, l2_r, n, J)
+    prot_adsamp_estimated_error = helpers.prot_adsamp_estimated_error(epsilon, d, n, linf_r)
 
     start_real_response = time.time_ns()
     real_response = helpers.realResponse(D, A)
@@ -37,11 +37,11 @@ def simulation(categories, queries, users, epsilon, delta):
 
     print(f"Epsilon: {epsilon}, Delta: {delta}, N_cat: {categories}, users: {users}")
     print(f"Real response = {real_response}")
-    print(f"Estimated Gauss error: {l2_gauss_error}")
+    print(f"Estimated Gauss error: {prot_gauss_estimated_error}")
     print(f"ProtGauss error: {prot_gauss_error}, response = {prot_gauss_response}")
-    print(f"Estimated RejSamp error: {l2_error}")
+    print(f"Estimated RejSamp error: {prot_rejsamp_estimated_error}")
     print(f"ProtRejSamp error: {prot_rejsamp_error}, response = {prot_rejsamp_response}")
-    print(f"Estimated AdSamp error: {linf_error}")
+    print(f"Estimated AdSamp error: {prot_adsamp_estimated_error}")
     print(f"ProtAdSamp error: {prot_adsamp_error_linf}, response = {prot_adsamp_reponse}")
     print(f"ProtAdSamp l2-error: {prot_adsamp_error_l2}\n")
 
@@ -58,9 +58,9 @@ def simulation(categories, queries, users, epsilon, delta):
 
     with open('results.csv', mode='a') as results:
         results_writer = csv.writer(results, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        results_writer.writerow([curr_uuid, 'ProtGauss', prot_gauss_response, l2_gauss_error, prot_gauss_error])
-        results_writer.writerow([curr_uuid, 'ProtRejSamp', prot_rejsamp_response, l2_error, prot_rejsamp_error])
-        results_writer.writerow([curr_uuid, 'ProtAdSamp', prot_adsamp_reponse, linf_error, prot_adsamp_error_linf])
+        results_writer.writerow([curr_uuid, 'ProtGauss', prot_gauss_response, prot_gauss_estimated_error, prot_gauss_error])
+        results_writer.writerow([curr_uuid, 'ProtRejSamp', prot_rejsamp_response, prot_rejsamp_estimated_error, prot_rejsamp_error])
+        results_writer.writerow([curr_uuid, 'ProtAdSamp', prot_adsamp_reponse, prot_adsamp_estimated_error, prot_adsamp_error_linf])
         results_writer.writerow([curr_uuid, 'Real', real_response, "NA", "NA"])
 
 categories = [50]
