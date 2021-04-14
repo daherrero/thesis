@@ -78,4 +78,4 @@ for n_users in users:
             for category in categories:
                 for query in queries:
                     for t in range(times):
-                        simulation(category, query, n_users, epsilon, np.multiply(delta, np.divide(1,n_users)))
+                        simulation(int(category*n_users), query, n_users, epsilon, np.multiply(delta, np.divide(1,n_users)))
