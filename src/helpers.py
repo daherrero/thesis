@@ -35,7 +35,7 @@ def prot_adsamp_estimated_error(epsilon, d, n, r):
     return np.multiply(r, np.sqrt(np.divide(np.multiply(np.power(c_epsilon(epsilon), 2), np.multiply(d, np.log(d))), n)))
 
 def l2_r(query_matrix):
-    return np.amax(np.linalg.norm(query_matrix, axis=1))
+    return np.amax(np.linalg.norm(query_matrix, axis=0))
 
 def prot_rejsamp_estimated_error(epsilon, d, r, n, J):
     a = np.power(np.divide(np.multiply(280*np.log(J),np.log(n)), np.multiply(n, np.power(epsilon, 2))), np.divide(1,4))
