@@ -1,8 +1,13 @@
-import numpy as np
+from numpy import zeros, identity, multiply
+from numpy.random import default_rng
 
-
-def R_i_Gauss(A, v_i, epsilon, delta, sigma_sq):
+def R_i_Gauss(A, v_i, sigma_sq):
+    # Inferred parameters
     d = A.shape[0]
+
+    # Real response
     a_v_i = A[:, v_i]
-    z_i = np.random.multivariate_normal(np.zeros(d), np.multiply(sigma_sq, np.identity(d)))
+
+    # Gaussian noise
+    z_i = default_rng().multivariate_normal(zeros(d), multiply(sigma_sq, identity(d)))
     return a_v_i+z_i
