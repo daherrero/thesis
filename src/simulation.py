@@ -13,8 +13,8 @@ def simulation(categories, queries, users, epsilon, delta):
     n = users
     D = helpers.user_data_generator(n, J)
     A = helpers.linear_queries_generator(d, J)
-    l2_r = helpers.l2_r(A)
-    linf_r = helpers.linf_r(A)
+    l2_r = helpers.l_2_r(A)
+    linf_r = helpers.l_infinity_r(A)
     curr_uuid = str(uuid.uuid4())
     prot_gauss_estimated_error = helpers.prot_gauss_estimated_error(epsilon, delta, d, l2_r, n, J) 
     prot_rejsamp_estimated_error = helpers.prot_rejsamp_estimated_error(epsilon, d, l2_r, n, J)

@@ -17,7 +17,7 @@ def simulation():
     D = helpers.user_data_generator(n, J)
     A = helpers.linear_queries_generator(d, J)
     private_response, query_time, total_time = Prot_AdSamp(D, epsilon, A)
-    linf_r = helpers.linf_r(A)
+    linf_r = helpers.l_infinity_r(A)
     linf_error = helpers.prot_adsamp_estimated_error(epsilon, d, n, linf_r)
     real_response = helpers.realResponse(D, A)
     prot_adsamp_error = np.linalg.norm(x=(real_response-private_response), ord=inf)
