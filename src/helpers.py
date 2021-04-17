@@ -1,9 +1,9 @@
 import numpy as np
 
-def trueResponse(D, A):
+def realResponse(D, A):
     y_tilda = np.zeros(shape=(D.shape[0], A.shape[0]))
     for user in range(D.shape[0]):
-        y_tilda[user, ] = np.matmul(A, D[user])
+        y_tilda[user, ] = A[:, D[user]]
     y_sum = y_tilda.sum(axis=0)
     y = np.divide(y_sum, D.shape[0])
     return y
