@@ -1,6 +1,5 @@
 from algorithm_4 import Prot_RejSamp
-from math import exp, sqrt, log
-import numpy as np
+from numpy.linalg import norm
 import sys, helpers
 
 
@@ -14,7 +13,7 @@ def simulation():
         n = int(sys.argv[3])
         epsilon = float(sys.argv[4])
 
-    # Queries and data generation
+    # Queries matrix and user data generation
     D = helpers.user_data_generator(n, J)
     A = helpers.linear_queries_generator(d, J)
 
@@ -24,7 +23,7 @@ def simulation():
 
     # Errors
     estimated_error = helpers.prot_rejsamp_estimated_error(epsilon, d, helpers.l_2_r(A), n, J)
-    real_error = np.linalg.norm(real_response-private_response)
+    real_error = norm(real_response-private_response)
 
     # Printing
     print(f"Private response: {private_response}\nReal response: {real_response}")

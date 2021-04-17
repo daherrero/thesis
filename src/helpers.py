@@ -44,8 +44,6 @@ def prot_adsamp_estimated_error(epsilon, d, n, r):
 def prot_rejsamp_estimated_error(epsilon, d, r, n, J):
     a = np.power(np.divide(np.multiply(280*np.log(J),np.log(n)), np.multiply(n, np.power(epsilon, 2))), np.divide(1,4))
     b = np.sqrt(np.divide(np.multiply(10*d,np.log(n)), np.multiply(n, np.power(epsilon, 2))))
-    print(a)
-    print(b)
     return np.multiply(r, np.minimum(a, b))
 
 

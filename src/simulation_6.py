@@ -1,6 +1,8 @@
 from algorithm_6 import Prot_AdSamp
+
+from numpy.linalg import norm
 from math import inf
-import numpy as np
+
 import sys, helpers
 
 
@@ -14,18 +16,21 @@ def simulation():
         n = int(sys.argv[3])
         epsilon = float(sys.argv[4])
 
+    # Queries matrix and user data generation
     D = helpers.user_data_generator(n, J)
     A = helpers.linear_queries_generator(d, J)
-    private_response, query_time, total_time = Prot_AdSamp(D, epsilon, A)
-    linf_r = helpers.l_infinity_r(A)
-    linf_error = helpers.prot_adsamp_estimated_error(epsilon, d, n, linf_r)
+
+    # Responses
+    private_response, time_per_query, total_time = Prot_AdSamp(D, epsilon, A)
     real_response = helpers.realResponse(D, A)
-    prot_adsamp_error = np.linalg.norm(x=(real_response-private_response), ord=inf)
-    print(linf_error)
-    print(prot_adsamp_error)
-    print(private_response)
-    print(real_response)
-    print(query_time)
-    print(total_time)
+
+    # Errors
+    estimated_error = helpers.prot_adsamp_estimated_error(epsilon, d, n, helpers.l_infinity_r(A))
+    real_error = norm(x=(real_response-private_response), ord=inf)
+
+    # Printing
+    print(f"Private response: {private_response}\nReal response: {real_response}")
+    print(f"Estimated error: {estimated_error}\nReal error: {real_error}")
+    print(f"Time per query (s): {time_per_query}\nTotal time (ms) {total_time}")
 
 simulation()
