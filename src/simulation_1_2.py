@@ -1,5 +1,4 @@
 from algorithm_2 import Prot_Gauss
-from math import exp, sqrt, log
 import numpy as np
 import sys, helpers
 
@@ -15,13 +14,21 @@ def simulation():
         epsilon = float(sys.argv[4])
         delta = float(sys.argv[5])
 
+    # Queries and data generation
     D = helpers.user_data_generator(n, J)
     A = helpers.linear_queries_generator(d, J)
-    private_response = Prot_Gauss(A, D, epsilon, delta, J)
+
+    # Responses
+    private_response, time_per_query, total_time = Prot_Gauss(A, D, epsilon, delta, J)
     real_response = helpers.realResponse(D, A)
-    print(private_response)
-    print(real_response)
-    print(helpers.prot_gauss_estimated_error(epsilon, delta, d, helpers.l_2_r(A), n, J))
-    print(np.linalg.norm(real_response-private_response))
+
+    # Errors
+    estimated_error = helpers.prot_gauss_estimated_error(epsilon, delta, d, helpers.l_2_r(A), n, J)
+    real_error = np.linalg.norm(real_response-private_response)
+
+    # Printing
+    print(f"Private response: {private_response}\nReal response: {real_response}")
+    print(f"Estimated error: {estimated_error}\nReal error: {real_error}")
+    print(f"Time per query (s): {time_per_query}\nTotal time (ms) {total_time}")
 
 simulation()
