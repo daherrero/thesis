@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def realResponse(D, A):
     y_tilda = np.zeros(shape=(D.shape[0], A.shape[0]))
     for user in range(D.shape[0]):

@@ -8,7 +8,6 @@ def Prot_Gauss(A, users_inputs, epsilon, delta, J):
     start_time_all = time.time_ns()
     n = users_inputs.shape[0]
     d = A.shape[0]
-    
     r_sq = power(helpers.l_2_r(A), 2)
     sigma_sq = 2 * r_sq * divide(log(2/delta), power(epsilon, 2))
 
@@ -16,7 +15,7 @@ def Prot_Gauss(A, users_inputs, epsilon, delta, J):
     y_tilda = zeros(shape=(n, d))
     start_time_queries = time.time_ns()
     for user in range(n):
-        y_tilda[user, ] = R_i_Gauss(A, users_inputs[user], sigma_sq)
+        y_tilda[user, ] = R_i_Gauss(A, users_inputs[user], sigma_sq, d)
     end_time_queries = time.time_ns()
 
     # Line 4
