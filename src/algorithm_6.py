@@ -6,7 +6,7 @@ def Prot_AdSamp(D, epsilon, queries):
     start_time_all = time.time_ns()
     partition = np.random.randint(queries.shape[0], size=D.shape[0])
     c_epsilon = helpers.c_epsilon(epsilon)
-    r = helpers.linf_r(queries)
+    r = helpers.l_infinity_r(queries)
     c_epsilon_r = c_epsilon*r
     response_vector = np.zeros(queries.shape[0])
     start_time_queries = time.time_ns()

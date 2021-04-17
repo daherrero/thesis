@@ -7,7 +7,7 @@ def Prot_RejSamp(A, users_inputs, epsilon, J):
     start_time_all = time.time_ns()
     n = users_inputs.shape[0]
     d = A.shape[0]
-    r_sq = np.power(helpers.l2_r(A), 2)
+    r_sq = np.power(helpers.l_2_r(A), 2)
 
     sigma_sq = 4 * r_sq * np.divide(np.log(n), np.power(epsilon, 2))
 

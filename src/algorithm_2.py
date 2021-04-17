@@ -8,7 +8,7 @@ def Prot_Gauss(A, users_inputs, epsilon, delta, J):
     n = users_inputs.shape[0]
     d = A.shape[0]
     
-    r_sq = np.power(helpers.l2_r(A), 2)
+    r_sq = np.power(helpers.l_2_r(A), 2)
     sigma_sq = 2 * r_sq * np.divide(np.log(2/delta), np.power(epsilon, 2))
 
     y_tilda = np.zeros(shape=(n, d))
