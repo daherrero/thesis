@@ -65,11 +65,11 @@ def simulation(categories, queries, users, epsilon, delta):
         results_writer.writerow([curr_uuid, 'ProtAdSamp', prot_adsamp_reponse, prot_adsamp_estimated_error, prot_adsamp_error_l2,prot_adsamp_error_linf])
         results_writer.writerow([curr_uuid, 'Real', real_response, "NA", "NA"])
 
-categories = [0.01, 0.1, 1, 10]
+categories = [0.1, 1, 10]
 queries = [5]
-users = [100, 10000]
+users = [100, 1000, 10000]
 epsilons = [0.1, 0.2, 0.3, 0.4, 0.5, 1]
-deltas = [1, 0.1, 0.01]
+deltas = [0.01, 0.1, 1]
 times = 5
 
 for n_users in users:
