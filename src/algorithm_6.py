@@ -27,7 +27,7 @@ def Prot_AdSamp(D, epsilon, queries):
         # Lines 3 to 5
         for user in users_in_k:
             q_k_v_i = queries[k, D[user]]
-            if random.rand() < (1/2)*(1+(divide(q_k_v_i, c_epsilon_r))):
+            if default_rng().random() < (1/2)*(1+(divide(q_k_v_i, c_epsilon_r))):
                 y_tilda_sum += c_epsilon_r
             else:
                 y_tilda_sum -= c_epsilon_r
