@@ -67,7 +67,7 @@ def simulation(categories, queries, users, epsilon, delta):
 
 categories = [0.1, 1, 10]
 queries = [5]
-users = [100, 1000, 10000]
+users = [100000]
 epsilons = [0.1, 0.2, 0.3, 0.4, 0.5, 1]
 deltas = [0.01, 0.1, 1]
 times = 5
