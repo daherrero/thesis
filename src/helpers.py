@@ -11,7 +11,7 @@ def realResponse(D, A):
 
 
 # Data generation
-def user_data_generator(n, J, loc=0, scale=1):
+def user_data_generator(n, J):
     return np.random.default_rng().integers(J, size=n)
 
 
