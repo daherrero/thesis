@@ -64,19 +64,19 @@ def simulation(categories, queries, users, epsilon, delta):
         results_writer.writerow([curr_uuid, 'ProtAdSamp', prot_adsamp_reponse, prot_adsamp_estimated_error, prot_adsamp_error_l2,prot_adsamp_error_linf])
         results_writer.writerow([curr_uuid, 'Real', real_response, "NA", "NA"])
 
-# categories = [0.1, 1, 10]
-# queries = [10, 100, 1000]
-# users = [100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000]
-# epsilons = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 10]
-# deltas = [0.01, 0.1, 1]
-# times = 10
-
-categories = [10]
-queries = [1000]
-users = [1000000000]
-epsilons = [0.1, 1, 10]
+categories = [0.1, 1, 10]
+queries = [10]
+users = [100, 1000, 10000, 100000]
+epsilons = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 10]
 deltas = [0.01, 0.1, 1]
-times = 2
+times = 1
+
+# categories = [10]
+# queries = [1000]
+# users = [1000000]
+# epsilons = [0.1, 1, 10]
+# deltas = [0.01, 0.1, 1]
+# times = 2
 
 
 for n_users in users:
@@ -88,10 +88,10 @@ for n_users in users:
                         simulation(int(category*n_users), query, n_users, epsilon, np.multiply(delta, np.divide(1,n_users)))
                         # simulation(category, query, n_users, epsilon, np.multiply(delta, np.divide(1,n_users)))
 
-for n_users in users:
-    for epsilon in epsilons:
-        for category in categories:
-            for query in queries:
-                for t in range(times):
-                    simulation(int(category*n_users), query, n_users, epsilon, np.multiply(1, np.divide(1,n_users)))
-                    # simulation(category, query, n_users, epsilon, np.multiply(delta, np.divide(1,n_users)))
+# for n_users in users:
+#     for epsilon in epsilons:
+#         for category in categories:
+#             for query in queries:
+#                 for t in range(times):
+#                     simulation(int(category*n_users), query, n_users, epsilon, np.multiply(1, np.divide(1,n_users)))
+#                     # simulation(category, query, n_users, epsilon, np.multiply(delta, np.divide(1,n_users)))
