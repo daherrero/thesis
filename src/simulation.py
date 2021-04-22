@@ -16,7 +16,7 @@ def simulation(categories, queries, users, epsilon, delta):
     l2_r = helpers.l_2_r(A)
     linf_r = helpers.l_infinity_r(A)
     curr_uuid = str(uuid.uuid4())
-    prot_gauss_estimated_error = helpers.prot_gauss_estimated_error(epsilon, delta, d, l2_r, n, J) 
+    # prot_gauss_estimated_error = helpers.prot_gauss_estimated_error(epsilon, delta, d, l2_r, n, J) 
     prot_rejsamp_estimated_error = helpers.prot_rejsamp_estimated_error(epsilon, d, l2_r, n, J)
     prot_adsamp_estimated_error = helpers.prot_adsamp_estimated_error(epsilon, d, n, linf_r)
 
@@ -27,11 +27,11 @@ def simulation(categories, queries, users, epsilon, delta):
     query_real_time = np.divide(np.divide((end_real_response - start_real_response), users), (10**6))
     print(f"Real response = {real_response}")
 
-    prot_gauss_response, gauss_query_time, gauss_total_time = Prot_Gauss(A, D, epsilon, delta, J)
-    prot_gauss_error_l2 = np.linalg.norm(real_response-prot_gauss_response)
-    prot_gauss_error_linf = np.linalg.norm(x=(real_response-prot_gauss_response), ord=inf)
-    print(f"Estimated Gauss error: {prot_gauss_estimated_error}")
-    print(f"ProtGauss error: {prot_gauss_error_l2}, response = {prot_gauss_response}")
+    # prot_gauss_response, gauss_query_time, gauss_total_time = Prot_Gauss(A, D, epsilon, delta, J)
+    # prot_gauss_error_l2 = np.linalg.norm(real_response-prot_gauss_response)
+    # prot_gauss_error_linf = np.linalg.norm(x=(real_response-prot_gauss_response), ord=inf)
+    # print(f"Estimated Gauss error: {prot_gauss_estimated_error}")
+    # print(f"ProtGauss error: {prot_gauss_error_l2}, response = {prot_gauss_response}")
 
     prot_rejsamp_response, rejsamp_query_time, rejsamp_total_time = Prot_RejSamp(A, D, epsilon, J)
     prot_rejsamp_error_l2 = np.linalg.norm(real_response-prot_rejsamp_response)
@@ -52,31 +52,31 @@ def simulation(categories, queries, users, epsilon, delta):
 
     with open('time_results.csv', mode='a') as time_results:
         time_results_writer = csv.writer(time_results, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        time_results_writer.writerow([curr_uuid, 'ProtGauss', gauss_query_time, gauss_total_time])
+        # time_results_writer.writerow([curr_uuid, 'ProtGauss', gauss_query_time, gauss_total_time])
         time_results_writer.writerow([curr_uuid, 'ProtRejSamp', rejsamp_query_time, rejsamp_total_time])
         time_results_writer.writerow([curr_uuid, 'ProtAdSamp', adsamp_query_time, adsamp_total_time])
         time_results_writer.writerow([curr_uuid, 'Real', query_real_time, total_real_time])
 
     with open('results.csv', mode='a') as results:
         results_writer = csv.writer(results, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        results_writer.writerow([curr_uuid, 'ProtGauss', prot_gauss_response, prot_gauss_estimated_error, prot_gauss_error_l2, prot_gauss_error_linf])
+        # results_writer.writerow([curr_uuid, 'ProtGauss', prot_gauss_response, prot_gauss_estimated_error, prot_gauss_error_l2, prot_gauss_error_linf])
         results_writer.writerow([curr_uuid, 'ProtRejSamp', prot_rejsamp_response, prot_rejsamp_estimated_error, prot_rejsamp_error_l2, prot_rejsamp_error_linf])
         results_writer.writerow([curr_uuid, 'ProtAdSamp', prot_adsamp_reponse, prot_adsamp_estimated_error, prot_adsamp_error_l2,prot_adsamp_error_linf])
         results_writer.writerow([curr_uuid, 'Real', real_response, "NA", "NA"])
 
-categories = [0.1, 1, 10]
-queries = [5]
-users = [100, 1000, 10000, 100000]
-epsilons = [0.01]
-deltas = [0.01, 0.1, 1]
-times = 5
+# categories = [0.1, 1, 10]
+# queries = [10, 100, 1000, 10000]
+# users = [100, 1000, 10000]
+# epsilons = [0.1, 1, 10]
+# deltas = [0.01, 0.1, 1]
+# times = 2
 
-# categories = [10]
-# queries = [100]
-# users = [100000]
-# epsilons = [1]
-# deltas = [1]
-# times = 1
+categories = [10]
+queries = [10000]
+users = [10000]
+epsilons = [0.1, 1, 10]
+deltas = [0.01, 0.1, 1]
+times = 2
 
 
 for n_users in users:
@@ -87,3 +87,11 @@ for n_users in users:
                     for t in range(times):
                         simulation(int(category*n_users), query, n_users, epsilon, np.multiply(delta, np.divide(1,n_users)))
                         # simulation(category, query, n_users, epsilon, np.multiply(delta, np.divide(1,n_users)))
+
+for n_users in users:
+    for epsilon in epsilons:
+        for category in categories:
+            for query in queries:
+                for t in range(times):
+                    simulation(int(category*n_users), query, n_users, epsilon, np.multiply(1, np.divide(1,n_users)))
+                    # simulation(category, query, n_users, epsilon, np.multiply(delta, np.divide(1,n_users)))
